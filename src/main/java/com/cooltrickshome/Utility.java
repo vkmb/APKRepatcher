@@ -116,7 +116,7 @@ public class Utility {
 		// {"cmd","/c","start","/B","java","-jar",getAPKToolLibraryPath(),"d",apkPath,"-rso",outputDirectory};
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-jar", getAPKToolLibraryPath(), "d",
 				apkPath, "-rfso", outputDirectory };
-		runProgram(commands, getProjectPath());
+		runProgram(commands, getProjectPath(), false);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class Utility {
 		// {"cmd","/c","start","/B","java","-jar",getAPKToolLibraryPath(),"d",apkPath,"-fo",outputDirectory};
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-jar", getAPKToolLibraryPath(), "d",
 				apkPath, "-fo", outputDirectory };
-		runProgram(commands, getProjectPath());
+		runProgram(commands, getProjectPath(), false);
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class Utility {
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public static int runProgram(String[] program, String workingDir)
+	public static int runProgram(String[] program, String workingDir, Boolean sh)
 			throws InterruptedException, IOException {
 		int errorFound = 0;
 		String commandRun="";
@@ -251,6 +251,9 @@ public class Utility {
 		System.out.println("\t" + workingDir);
 		System.out.println("");
 		ConsoleViewer.setText(commandRun);
+		if (sh) {
+			program = new String[] {"sh", "-c", commandRun};
+		}
 		Process proc = Runtime.getRuntime().exec(program, null,
 				new File(workingDir));
 		processList.add(proc);
@@ -322,7 +325,7 @@ public class Utility {
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "dex2Jar", dexFile.getAbsolutePath(),
 				outputFile.getAbsolutePath() };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -343,7 +346,7 @@ public class Utility {
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "dex2Smali",
 				dexFile.getAbsolutePath(), outputFile.getAbsolutePath() };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -364,7 +367,7 @@ public class Utility {
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "smali2Dex",
 				smaliFile.getAbsolutePath(), outputFile.getAbsolutePath() };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -388,7 +391,7 @@ public class Utility {
 				"." + File.pathSeparatorChar + getJadLibraryPath() + File.separator + "*",
 				getJadHelperClassName(), "jadx", jarPath.getAbsolutePath(),
 				outputSourceDirectory };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	public static void destroyDanglingProcess(){
@@ -447,7 +450,7 @@ public class Utility {
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "signApk", input, output };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -466,7 +469,7 @@ public class Utility {
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "jar2Dex", jarPath, outputPath };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -485,7 +488,7 @@ public class Utility {
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
 				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "class2Dex", classPath, dexPath };
-		runProgram(commands, getHelperPath());
+		runProgram(commands, getHelperPath(), false);
 	}
 
 	/**
@@ -599,7 +602,7 @@ public class Utility {
 		}
 		ConsoleViewer.setText("Compiling: " + compileCommand);
 		// Runtime.getRuntime().exec(commands,null,compileDir);
-		runProgram(commands, compileDir.getAbsolutePath());
+		runProgram(commands, compileDir.getAbsolutePath(), false);
 	}
 
 	/**
@@ -618,7 +621,7 @@ public class Utility {
 			// String[] commands =
 			// {"cmd","/c","start","/B","jar","vfu",modifiedJarName,"*"};
 			String[] commands = { "jar", "vfu", modifiedJarName, "*" };
-			runProgram(commands, f.getAbsolutePath());
+			runProgram(commands, f.getAbsolutePath(), true);
 		}
 		ConsoleViewer.setText("Jar packaging complete");
 	}
