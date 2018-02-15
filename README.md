@@ -1,3 +1,15 @@
+This is a fork of APKRepatcher to support Windows and Linux, and to fix compilation bugs.
+
+To compile (requires Maven):
+
+    mvn clean compile assembly:single
+    cd target
+    cp -r ../APKRepatcher_lib .
+
+To run, `java -jar APKRepatcher-0.0.1-SNAPSHOT-jar-with-dependencies.jar`.
+
+---
+
 # APKRepatcher
 
 APKRepatcher helps you to modify an existing apk using a simple user friendly GUI. It lets you edit java/smali code from an APK and rewrite the changes back to the modified signed APK. Additionally, it provides you option to convert Dex, Jar, Class, Smali, Class from one format to another.

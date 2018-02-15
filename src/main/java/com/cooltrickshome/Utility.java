@@ -245,6 +245,11 @@ public class Utility {
 		for(String command:program){
 			commandRun+=command+" ";
 		}
+		System.out.println("Executing:");
+		System.out.println("\t" + commandRun);
+		System.out.println("in:");
+		System.out.println("\t" + workingDir);
+		System.out.println("");
 		ConsoleViewer.setText(commandRun);
 		Process proc = Runtime.getRuntime().exec(program, null,
 				new File(workingDir));
@@ -314,7 +319,7 @@ public class Utility {
 		// Dex2jarCmd.main(new
 		// String[]{"--force","--output",outputFile.getAbsolutePath(),dexFile.getAbsolutePath()});
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "dex2Jar", dexFile.getAbsolutePath(),
 				outputFile.getAbsolutePath() };
 		runProgram(commands, getHelperPath());
@@ -335,7 +340,7 @@ public class Utility {
 		// BaksmaliCmd.main(new
 		// String[]{"--force","--output",outputFile.getAbsolutePath(),dexFile.getAbsolutePath()});
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "dex2Smali",
 				dexFile.getAbsolutePath(), outputFile.getAbsolutePath() };
 		runProgram(commands, getHelperPath());
@@ -356,7 +361,7 @@ public class Utility {
 		// SmaliCmd.main(new
 		// String[]{"--output",outputFile.getAbsolutePath(),dexFile.getAbsolutePath()});
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "smali2Dex",
 				smaliFile.getAbsolutePath(), outputFile.getAbsolutePath() };
 		runProgram(commands, getHelperPath());
@@ -380,7 +385,7 @@ public class Utility {
 		 * ConsoleViewer.setText("Completed"); }
 		 */
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit,"-cp",
-				".;" + getJadLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getJadLibraryPath() + File.separator + "*",
 				getJadHelperClassName(), "jadx", jarPath.getAbsolutePath(),
 				outputSourceDirectory };
 		runProgram(commands, getHelperPath());
@@ -440,7 +445,7 @@ public class Utility {
 	public static void signApk(String input, String output)
 			throws InterruptedException, IOException {
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "signApk", input, output };
 		runProgram(commands, getHelperPath());
 	}
@@ -459,7 +464,7 @@ public class Utility {
 			throws InterruptedException, IOException {
 		// Jar2Dex.main(new String[]{"--force","--output",outputPath,jarPath});
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "jar2Dex", jarPath, outputPath };
 		runProgram(commands, getHelperPath());
 	}
@@ -478,7 +483,7 @@ public class Utility {
 			throws InterruptedException, IOException {
 		// Jar2Dex.main(new String[]{"--force","--output",dexPath,classPath});
 		String[] commands = { "java",heapArg+memoryAllocated+memUnit, "-cp",
-				".;" + getDexLibraryPath() + File.separator + "*",
+				"." + File.pathSeparatorChar + getDexLibraryPath() + File.separator + "*",
 				getDexHelperClassName(), "class2Dex", classPath, dexPath };
 		runProgram(commands, getHelperPath());
 	}
@@ -584,9 +589,9 @@ public class Utility {
 		jarFilePath = Utility.getModifiedJar() + File.separator + "*";
 		file = file.substring(file.indexOf("dex") + 4, file.length());
 		// String[] commands =
-		// {"cmd","/c","start","cmd","/k","javac","-cp",".;"+jarFilePath+";"+libraryDir+File.separator+"*",file};
+		// {"cmd","/c","start","cmd","/k","javac","-cp","." + File.pathSeparatorChar+jarFilePath+File.pathSeparatorChar+libraryDir+File.separator+"*",file};
 		String[] commands = { "javac", "-cp",
-				".;" + jarFilePath + ";" + libraryDir + File.separator + "*",
+				"." + File.pathSeparatorChar + jarFilePath + File.pathSeparatorChar + libraryDir + File.separator + "*",
 				file };
 		String compileCommand = "";
 		for (String command : commands) {
