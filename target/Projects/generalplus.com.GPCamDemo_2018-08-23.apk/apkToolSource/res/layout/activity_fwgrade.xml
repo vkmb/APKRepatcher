@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout n1:orientation="vertical" n1:id="@id/fragment_gpcam" n1:layout_width="fill_parent" n1:layout_height="fill_parent"
+  xmlns:n1="http://schemas.android.com/apk/res/android">
+    <LinearLayout n1:gravity="center|top" n1:orientation="vertical" n1:layout_width="fill_parent" n1:layout_height="fill_parent">
+        <Button n1:id="@id/button1" n1:layout_width="wrap_content" n1:layout_height="wrap_content" n1:text="@string/Select_file" n1:onClick="selectFile" />
+    </LinearLayout>
+</LinearLayout>
